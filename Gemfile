@@ -25,6 +25,28 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 gem 'spring',        group: :development
+gem 'devise'
+gem 'thin'
+
+
+group :test do
+  gem 'capybara'
+  gem 'cucumber-rails', require: false
+  gem 'database_cleaner', "~> 1.2.0"
+  gem "launchy", '~> 2.4.2'
+  gem "capybara-webkit" # For UI Testing only
+  gem 'spork', '~> 1.0rc'
+  gem 'shoulda-matchers'
+  gem 'watchr'
+  gem 'autotest'
+  gem 'autotest-rails'
+end
+gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
+
+gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
+
+gem 'rspec-rails', '~> 3.0.0', :group => [:development, :test]
+gem 'factory_girl_rails', :group => [:development, :test]
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
