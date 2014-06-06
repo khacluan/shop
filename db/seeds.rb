@@ -33,7 +33,7 @@ def self.load_products
     products_array = parse("http://shopping.yahooapis.jp/ShoppingWebService/V1/json/itemSearch?appid=dj0zaiZpPXpIMzBsMUQyTk55dSZkPVlXazlZWGxzYjNoWU0yVW1jR285TUEtLSZzPWNvbnN1bWVyc2VjcmV0Jng9MzI-&category_id=#{category.id}")
     products_array['ResultSet']['0']['Result'].map do |key, value|
       if value && value['Name']
-        Product.create(id: value['Id'], photo: URI.parse(value['Image']['Medium']), description: value['Description'], price: value['DefaultPrice'], name: value['Name'], category_id: category.id)
+        Product.create(id: value['Id'], photo: URI.parse(value['Image']['Medium']), description: value['Description'], price: value['Price']['_value'], name: value['Name'], category_id: category.id)
       end
     end
   end

@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
+  get '/frontends/:id/products_by_category', controller: :frontends, action: :products_by_category
+  get '/frontends/:id/product_detail', controller: :frontends, action: :product_detail
+
   root 'frontends#index'
 
 

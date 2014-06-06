@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-md-4">
+    <%= render :partial => "shared/categories", locals: {categories: @categories} %>
+  </div>
+
+  <div class="col-md-8" id="stage">
+    <div class="row">
+      <div class="page-header text-center">
+        <h2><%= @category.name %></h2>
+        <table class="table table-striped">
+          <thead></thead>
+          <tbody>
+            <% @products.each do |product| %>
+            <tr>
+              <td>
+                <a href="/frontends/<%= product.id %>/product_detail" class="thumbnail">
+                  <%= image_tag product.photo.url(:thumb), alt: product.name%>
+                </a>
+              </td>
+              <td>
+                <div class="title"><%= product.name %></div>
+                <div class="price">¥<%= product.price %></div>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <%= paginate @products%>
+      </div>
+    </div>
+  </div>
+</div>

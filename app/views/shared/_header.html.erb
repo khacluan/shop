@@ -1,19 +1,18 @@
-<div class="navbar navbar-fluid-top">
-  <div class="navbar-inner">
-    <div class="container-fluid">
-      <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
+<div role="navigation" class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="header">
+      <ul class="nav nav-pills pull-right cus-link-user">
+        <%  if user_signed_in? %>
+          <li ><%= link_to current_user.email, '#', class: 'email-link' %></li>
+          <li ><%= link_to 'Logout', destroy_user_session_path, confirm: 'Are you sure you want to logout?', method: :delete%></li>
+        <%  else %>
+          <li> <%= link_to "Login", '#' , class: 'ajax-link', data: {method: 'GET', target: '', url: new_user_session_path}%></li>
+          <li><%= link_to "Register", '#', class: 'ajax-link', data: {method: 'GET', target: '', url: new_user_registration_path}%></li>
+        <% end %>
+      </ul>
+      <a href="/" class="navbar-brand app-logo">
+        <%= image_tag "/assets/logo.png", size: '335x34' %>
       </a>
-      <a class="brand" href="#">Shop</a>
-      <div class="container-fluid nav-collapse">
-        <ul class="nav">
-          <li><%= link_to "Link1", "/path1"  %></li>
-          <li><%= link_to "Link2", "/path2"  %></li>
-          <li><%= link_to "Link3", "/path3"  %></li>
-        </ul>
-      </div><!--/.nav-collapse -->
     </div>
   </div>
 </div>

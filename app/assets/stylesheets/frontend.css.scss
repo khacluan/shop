@@ -11,5 +11,106 @@
  * file per style scope.
  *
  *= require_self
- *= require bootstrap_and_overrides
+ *= require bootstrap
+ *= require jquery.fancybox
  */
+
+.cus-link-user {
+  margin-top: 5px;
+  li a.email-link {
+    &:hover, &:focus {
+      background: none !important;
+      text-decoration: underline;
+      color: #fff;
+    }
+  }
+}
+
+.group-categories {
+  width: 100%;
+}
+
+div.cus-thumb {
+  margin: 0 0 30px 0;
+
+  a.thumbnail {
+    margin-bottom: 10px;
+  }
+
+  div.product-name {
+    width: 165px;
+    color: #666;
+    font-weight: bold;
+  }
+}
+
+.page-header {
+  font-weight: bold;
+  color: #666;
+}
+
+a.thumbnail {
+  &:hover, &:focus, &:active {
+    box-shadow: 2px 2px 3px #ccc;
+  }
+}
+
+.search-box {
+  margin: 80px 0;
+}
+
+@media only screen and (max-width: 550px) and (min-width: 361px) {
+  .app-logo img {
+    width: 200px;
+  }
+}
+
+@media only screen and (max-width: 410px) {
+  .app-logo img {
+    width: 100px;
+  }
+}
+
+.pagination {
+
+
+  span {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    //padding: 5px 8px;
+    a {
+      padding: 5px 8px;
+    }
+  }
+
+  span:first-child {
+    border-left: 1px solid #ccc;
+  }
+}
+
+div.title {
+  color: #444;
+  margin-top: 20px;
+}
+
+.price {
+  color: #c00;
+}
+
+div.jumbotron {
+  p.description {
+    margin-top: 20px;
+  }
+}
+
+footer {
+  background-color: #222;
+  clear: both;
+  border-top: 1px solid #dadada;
+  height: 100px;
+  p {
+    color: #fff;
+    margin-top: 20px;
+  }
+}

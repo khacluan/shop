@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-md-4">
+    <%= render :partial => "shared/categories", locals: {categories: @categories} %>
+  </div>
+
+  <div class="col-md-8" id="stage">
+    <% if @product %>
+    <div class="page-header text-center">
+        <h2><%= @product.category.try(:name) %></h2>
+    </div>
+    <div class="jumbotron">
+      <div class="row">
+        <h4><%= @product.name %></h4>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <%= image_tag @product.photo.url(:medium) %>
+
+        </div>
+        <div class="col-md-8">
+          <div>Product ID : <%= @product.id %></div>
+          <div>Price: <span class='price'>¥<%= @product.price %></span></div>
+          <div>Date       : <%= @product.created_at.strftime("%d-%B-%Y: %H:%M, %p")%></div>
+        </div>
+      </div>
+      <p class="description"><%= @product.description %></p>
+      <button type="button" class="btn btn-primary">Buy</button>
+    </div>
+
+    <% else %>
+      <h1>Product is not found!</h1>
+    <% end %>
+  </div>
+</div>

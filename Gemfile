@@ -41,8 +41,9 @@ group :test do
   gem 'autotest'
   gem 'autotest-rails'
 end
-gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 
+gem 'kaminari'
+gem 'rsolr'
 gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
 
 gem 'rspec-rails', '~> 3.0.0', :group => [:development, :test]
