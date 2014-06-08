@@ -3,7 +3,7 @@ class FrontendsController < ActionController::Base
   layout 'frontend'
   include CurrentCart
   before_action :authenticate_user! , only: [:checkout, :profile]
-  before_action :set_cart, only: [:add_to_cart, :show_cart, :checkout, :update_cart, :remove_item]
+  before_action :set_cart, only: [:add_to_cart, :show_cart, :checkout, :update_cart, :remove_item, :update_billing_information]
   before_action :set_line_item, only: [:edit_cart, :destroy_cart]
 
   add_breadcrumb "Home", '/', only: [:index, :products_by_category, :product_detail]
@@ -16,6 +16,8 @@ class FrontendsController < ActionController::Base
   end
 
   def index
+
+    puts "index is #{session[:cart_id]}"
     @categories = Category.order('name asc')
     @latest_products = Product.latest_products
     @recommended_products = Product.recommended_products
@@ -80,7 +82,10 @@ class FrontendsController < ActionController::Base
   end
 
   def checkout
-    @order = Order.create(cart_id: @cart.id, user_id: current_user.id)
+    @order = @cart.order
+    if @order.nil?
+      @order = Order.create(cart_id: @cart.id, user_id: current_user.id, order_code: "JS-#{SecureRandom.hex(8).upcase}")
+    end
     @billing_information = if current_user.billing_information.nil?
       BillingInformation.create(user_id: current_user.id)
     else
@@ -96,8 +101,21 @@ class FrontendsController < ActionController::Base
     @billing_information = current_user.billing_information
     
     if @billing_information
-      @billing_information.update_attributes(params[:billing_information])
+      if @billing_information.update_attributes(permitted_billing_params)
+        session.delete(:cart_id)
+        puts "@ajaaj #{@cart.inspect} and session is #{session[:cart_id]}"
+        render action: :thank_you
+      else
+        @order = @cart.order
+        render action: :checkout
+      end
     end
   end
+
+  private
+
+    def permitted_billing_params
+      params.require(:billing_information).permit(:first_name, :last_name, :address, :zip_code, :city, :state, :tel)
+    end
 
 end

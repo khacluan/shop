@@ -11,7 +11,7 @@
     <tbody>
       <% if @order %>
       <tr>
-      	<td><%= @order.id %></td>
+      	<td><%= @order.order_code %></td>
       	<td><%= @order.user.try(:email)%></td>
         <td><%= @order.created_at.strftime("%d-%B-%Y  %H:%m, %p") %></td>
         <td>¥ <%= @order.cart.total_cost%></td>

@@ -1,6 +1,7 @@
 class Cart < ActiveRecord::Base
 	has_many :line_items, dependent: :destroy
-	
+	has_one :order
+
 	def self.item_count(cart_id)
 		cart = Cart.where(id: cart_id).includes(:line_items).first
 		if cart
