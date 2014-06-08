@@ -18,6 +18,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
+gem 'jquery-turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
@@ -28,6 +29,8 @@ gem 'spring',        group: :development
 gem 'devise'
 gem 'thin'
 
+gem 'formtastic'
+gem "breadcrumbs_on_rails"
 
 group :test do
   gem 'capybara'
@@ -43,7 +46,11 @@ group :test do
 end
 
 gem 'kaminari'
-gem 'rsolr'
+# gem 'rsolr'
+gem 'sunspot_rails'
+gem 'sunspot_solr'
+gem 'progress_bar'
+
 gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
 
 gem 'rspec-rails', '~> 3.0.0', :group => [:development, :test]

@@ -1,14 +1,17 @@
-<div class="search-box">
-  <div class="input-group">
-    <input type="text" class="form-control">
-    <span class="input-group-btn">
-      <button class="btn btn-default" type="button">Search</button>
-    </span>
-  </div><!-- /input-group -->
+<div class="row">
+	<div class="search-box col-md-6 col-md-offset-3">
+		<form method="get" action="/frontends/search">
+			<div class="input-group">
+		    <input type="text" class="form-control" name="q" value="" placeholder="Search ...">
+		    <span class="input-group-btn search-btn">
+		      <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+		    </span>
+		  </div><!-- /input-group -->
+		</form>
+	</div>
 </div>
 
+
 <ol class="breadcrumb">
-  <li><a href="#">Home</a></li>
-  <li><a href="#">Library</a></li>
-  <li class="active">Data</li>
+    <%= render_breadcrumbs :tag => :li, :separator => "" %>
 </ol>

@@ -1,10 +1,7 @@
-<div class="panel panel-default">
-  <div class="panel-heading">Category</div>
-  <div class="panel-body">
-    <div class="btn-group-vertical group-categories">
-      <% categories.each do |category| %>
-      <a class="btn btn-default show-products" type="button" href="/frontends/<%= category.id %>/products_by_category"><%= category.name %></a>
-      <% end %>
-    </div>
-  </div>
+
+<div class="btn-group-vertical group-categories">
+	<a class="btn btn-default legend">Category</a>
+  <% categories.each do |category| %>
+  <a class="btn btn-default show-products <%= category_active.nil? ? '' : (category_active.id == category.id ? 'active' : '')%>" type="button" href="/frontends/<%= category.id %>/products_by_category"><%= category.name %></a>
+  <% end %>
 </div>

@@ -1,0 +1,43 @@
+
+<div class="row main-box">
+	<div class="col-md-8 col-md-offset-2">
+		<table class="table table-striped table-hover">
+    <thead>
+    	<th>ID</th>
+    	<th>Customer</th>
+    	<th>Date</th>
+    	<th>Total</th>
+    </thead>
+    <tbody>
+      <% if @order %>
+      <tr>
+      	<td><%= @order.id %></td>
+      	<td><%= @order.user.try(:email)%></td>
+        <td><%= @order.created_at.strftime("%d-%B-%Y  %H:%m, %p") %></td>
+        <td>¥ <%= @order.cart.total_cost%></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+	</div>
+</div>
+<div class="row ">
+	<div class="col-md-6 col-md-offset-3 ">
+		<%= semantic_form_for @billing_information, url: '/frontends/update_billing_information', html: {method: :put} do |f| %>
+			<%= f.inputs :billing_information do %>
+				<%= f.input :first_name %>
+				<%= f.input :last_name %>
+				<%= f.input :address %>
+				<%= f.input :city %>
+				<%= f.input :zip_code %>
+				<%= f.input :state %>
+				<%= f.input :tel %>
+				<li class="string input optional stringish text-center">
+					<label></label>
+					<button class="btn btn-default btn-primary">Finish</button>
+				</li>
+			<% end %>
+		<% end %>
+	</div>
+	
+</div>

@@ -1,18 +1,43 @@
-<div role="navigation" class="navbar navbar-inverse navbar-fixed-top">
+<div role="navigation" class="navbar navbar-inverse navbar-fixed-top big-nav">
   <div class="container">
     <div class="header">
-      <ul class="nav nav-pills pull-right cus-link-user">
-        <%  if user_signed_in? %>
-          <li ><%= link_to current_user.email, '#', class: 'email-link' %></li>
-          <li ><%= link_to 'Logout', destroy_user_session_path, confirm: 'Are you sure you want to logout?', method: :delete%></li>
-        <%  else %>
-          <li> <%= link_to "Login", '#' , class: 'ajax-link', data: {method: 'GET', target: '', url: new_user_session_path}%></li>
-          <li><%= link_to "Register", '#', class: 'ajax-link', data: {method: 'GET', target: '', url: new_user_registration_path}%></li>
-        <% end %>
-      </ul>
       <a href="/" class="navbar-brand app-logo">
         <%= image_tag "/assets/logo.png", size: '335x34' %>
       </a>
+      <ul class="nav nav-pills pull-right cus-link-user">
+          <li class="dropdown">
+            <% counter = Cart.item_count(session[:cart_id]) %>
+            <a class="show-cart dropdown-toggle" data-toggle='dropdown' href="/frontends/<%= session[:cart_id] ? session[:cart_id] : 0 %>/show_cart">
+              <span class="glyphicon glyphicon-shopping-cart cart-icon-white"></span>
+              <span class="badge red-badge"><%= counter if (counter > 0) %></span>
+            </a>
+            <div class="dropdown-menu" id="box_cart">
+              <form>
+                <ul>
+
+                </ul>
+              </form>
+            </div>
+          </li>
+        <%  if user_signed_in? %>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle='dropdown' href="#"><span class="glyphicon glyphicon-user cart-icon-white"></span></a>
+            <ul id="box_user" class="dropdown-menu" >
+              <li ><%= link_to current_user.email, '/frontends/profile' %></li>
+              <li ><%= link_to 'Logout', destroy_user_session_path, confirm: 'Are you sure you want to logout?', method: :delete%></li>
+            </ul>
+          </li>
+        <%  else %>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle='dropdown' href="/frontends/profile"><span class="glyphicon glyphicon-user cart-icon-white"></span></a>
+            <ul id="box_user" class="dropdown-menu" >
+              <li> <%= link_to "Login", new_user_session_path %></li>
+              <li><%= link_to "Register", new_user_registration_path%></li>
+            </ul>
+          </li>
+        <% end %>
+      </ul>
+      
     </div>
   </div>
 </div>
