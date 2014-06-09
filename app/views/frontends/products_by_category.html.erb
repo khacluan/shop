@@ -29,7 +29,7 @@
             <% end %>
           </tbody>
         </table>
-        <%= paginate @products%>
+        <%= will_paginate @products, renderer: BootstrapPagination::Rails %>
       </div>
     </div>
   </div>

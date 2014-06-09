@@ -11,14 +11,6 @@ class Product < ActiveRecord::Base
 
   before_destroy :ensure_not_referenced_by_any_line_item
 
-  searchable do
-    text :name, :description
-
-    float :price
-  end
-
-  
-
   private
 
   	def ensure_not_referenced_by_any_line_item

@@ -7,17 +7,20 @@ class FrontendsController < ActionController::Base
   before_action :set_line_item, only: [:edit_cart, :destroy_cart]
 
   add_breadcrumb "Home", '/', only: [:index, :products_by_category, :product_detail]
-  
-  
+
+
   def search
-    @results = Product.search do
-      keywords params[:q]
-    end.results
+    # Direct connection
+    solr = RSolr.connect :url => 'http://luandk:luandk2014@localhost:8088/solr'
+    query = params[:q].empty? ? '*' : params[:q]
+    @solr_response = solr.paginate (params[:page] || 1), 20, 'select', :params => {
+      :q => "name, description, price:#{query}",
+    }
+
+    puts @solr_response['response']['docs'].first
   end
 
   def index
-
-    puts "index is #{session[:cart_id]}"
     @categories = Category.order('name asc')
     @latest_products = Product.latest_products
     @recommended_products = Product.recommended_products
@@ -29,7 +32,7 @@ class FrontendsController < ActionController::Base
     if params[:id].present?
       add_breadcrumb "Products",  products_category_path(params[:id])
       @category = Category.find_by(id: params[:id])
-      @products = @category.products.page(params[:page] || 1).per(6) if @category
+      @products = @category.products.paginate(page: (params[:page] || 1), per_page: 6) if @category
     end
   end
 
@@ -54,7 +57,7 @@ class FrontendsController < ActionController::Base
       else
         @cart.line_items.create(product: product, qty: 1)
       end
-    end    
+    end
     render partial: 'shared/show_cart', locals: {cart: @cart}
   end
 
@@ -94,12 +97,12 @@ class FrontendsController < ActionController::Base
   end
 
   def profile
-    
+
   end
 
   def update_billing_information
     @billing_information = current_user.billing_information
-    
+
     if @billing_information
       if @billing_information.update_attributes(permitted_billing_params)
         session.delete(:cart_id)

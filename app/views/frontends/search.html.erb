@@ -1,5 +1,20 @@
-<ul>
-<% @results.each do |p| %>
-	<li><%= p.name %></li>
-<% end %>
-</ul>
+<div class="row main-box">
+  <div class="col-md-7">
+    <span class="result-count">About <%= @solr_response['response']['numFound'] %> results</span>
+    <ul class="results">
+
+    <% @solr_response["response"]["docs"].each do |result| %>
+      <li>
+        <div class="head-search-result">
+          <div class="title"><a href="/frontends/<%= result['id']%>/product_detail"><%= result['name'] %></a></div>
+          <div class="cat"><%= result['category_name'] %></div>
+          <div class="description"><%= truncate(result['description'], length: 50) %></div>
+        </div>
+      </li>
+    <% end %>
+    </ul>
+    <%= will_paginate @solr_response["response"]["docs"], renderer: BootstrapPagination::Rails %>
+  </div>
+</div>
+
+

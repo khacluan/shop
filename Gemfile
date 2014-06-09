@@ -45,10 +45,11 @@ group :test do
   gem 'autotest-rails'
 end
 
-gem 'kaminari'
-# gem 'rsolr'
-gem 'sunspot_rails'
-gem 'sunspot_solr'
+gem 'will_paginate', '~> 3.0'
+gem 'will_paginate-bootstrap'
+gem 'rsolr'
+# gem 'sunspot_rails'
+# gem 'sunspot_solr'
 gem 'progress_bar'
 
 gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"

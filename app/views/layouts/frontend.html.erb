@@ -18,10 +18,10 @@
   </head>
   <body>
       <%= render :partial => "shared/header" %>
-      <div class="container" role="main">
-        <% if !["profile", "checkout", "update_billing_information"].index(params[:action])%>
+      <% if !["profile", "checkout", "update_billing_information", "search"].index(params[:action])%>
           <%= render :partial => "shared/search_box_and_breadcrumb.html" %>
-        <% end %>
+      <% end %>
+      <div class="container main-box" role="main">
         <%= yield %>
       </div>
       <%= render :partial => "shared/footer" %>
