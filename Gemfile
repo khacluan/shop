@@ -29,7 +29,7 @@ gem 'spring',        group: :development
 gem 'devise'
 gem 'thin'
 
-gem 'formtastic'
+gem 'formtastic', "~> 2.3.0.rc3"
 gem "breadcrumbs_on_rails"
 
 group :test do
@@ -45,11 +45,15 @@ group :test do
   gem 'autotest-rails'
 end
 
-gem 'will_paginate', '~> 3.0'
+gem 'kaminari'
+gem 'will_paginate', '>=3.0.pre2'
 gem 'will_paginate-bootstrap'
 gem 'rsolr'
 # gem 'sunspot_rails'
 # gem 'sunspot_solr'
+
+gem 'activeadmin', github: 'gregbell/active_admin'
+
 gem 'progress_bar'
 
 gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"

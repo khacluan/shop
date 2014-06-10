@@ -2,18 +2,21 @@
 <% if cart && cart.line_items.count > 0%>
 	<li class="clearfix">
 		<input type="hidden" id="tick_counter" name="tick-counter" value="<%= cart.line_items.count %>">
-		<div class="name page-header" style="width: 205px;">Name</div>
-		<div class="page-header" >Edit</div>
+		<div class="name page-header" style="width: <%= ["update_billing_information"].index(in_action) ? '225px;' : '205px;'%>">Name</div>
+		<div class="page-header"><%= ["update_billing_information"].index(in_action) ? 'Qty' : 'Edit'%></div>
 	</li>
 	<% cost = 0 %>
   <% cart.line_items.each do |item| %>
     <li class='clearfix'>
-    	<div class='name'><%= truncate(item.product.try(:name), length: 12)%></div>
+    	<div class='name <%= ["update_billing_information"].index(in_action) ? 'more-width' : ''%>'><%= truncate(item.product.try(:name), length: 12)%></div>
+      <% if ["update_billing_information"].index(in_action) %>
+      <div class="qty clearfix"><%= item.qty %></div>
+      <% else %>
     	<div class='qty clearfix'>
-    		<% item.qty %>
     		<input type="number" class="form-control" value="<%= item.qty %>" data-line-item-id="<%= item.id %>" min="1" max="50" step="1" required="true" data-price="<%= item.product.try(:price) %>"/>
     	</div>
     	<div class="glyphicon glyphicon-trash cart-remove-item" data-line-item-id="<%= item.id %>"></div>
+      <% end %>
     </li>
     <% cost += (item.qty * item.product.price) %>
   <% end %>
@@ -21,7 +24,7 @@
 		<li class="dropdown-header pull-right">
 			Total : ¥ <span class="total-cost"><%= cost %></span>
 		</li>
-		<% if !["checkout"].index(params[:action]) %>
+		<% if !["update_billing_information"].index(in_action) %>
 		<li class="pull-right">
 			<a href="/" class="btn btn-success btn-cart">Continue shopping</a>
 			<a href="/frontends/update_cart" class="btn btn-success btn-cart update-cart">Update</a>
@@ -31,4 +34,3 @@
 <% else %>
 		<li><div class="alert alert-warning cus-alert">You don't have any product yet.</div></li>
 <% end %>
-

@@ -17,6 +17,24 @@
 
  */
 
+ul.list-orders {
+  list-style: none;
+}
+
+.table-radius {
+  tr {
+    border-radius: 5px;
+  }
+
+}
+
+div.order {
+  div.thank-you {
+    font-size: 18px;
+
+  }
+}
+
 .nav > li > a {
   padding: 7px 10px !important;
  }
@@ -24,7 +42,7 @@
 .search-box {
   margin-top: 9px;
   margin-right: 5px;
-  width: 200px;
+  width: 300px;
 }
 
 div.breadcrumb-wrapper {
@@ -33,7 +51,7 @@ div.breadcrumb-wrapper {
   left:0;
   border: 1px solid #ccc;
   background: #FFFFFF;
-  width: 100%;
+  width: 101%;
   margin-bottom: 10px;
   box-shadow: 2px 2px 3px #ccc;
   padding: 0 -15px;
@@ -77,6 +95,7 @@ div.main-box {
 }
 .main-box {
   margin-top: 120px;
+  margin-bottom: 50px;
 }
 
 .thumbnail > img, .thumbnail a > img {
@@ -132,7 +151,6 @@ div.devise-form {
 }
 
 form.formtastic {
-  margin: 20px;
   legend {
     margin-bottom: 20px;
   }
@@ -189,6 +207,11 @@ div#box_cart {
         width: 175px;
         margin-top: 5px;
       }
+
+      div.more-width {
+        width: 230px;
+      }
+
       div.qty {
         color: #666;
         float: left;
@@ -313,12 +336,31 @@ table {
   .app-logo img {
     width: 200px;
   }
+  .search-box {
+    width: 230px;
+  }
 }
 
 @media only screen and (max-width: 410px) {
   .app-logo img {
     width: 250px;
     background-size: 100%;
+  }
+
+  .search-box {
+    width: 187px;
+  }
+}
+
+@media all and (max-width: 991px) and (min-width: 320px) {
+  div.breadcrumb-wrapper {
+    position: absolute;
+    left: 0;
+    top: 114px !important;
+  }
+
+  .main-box {
+    margin-top: 170px;
   }
 }
 
@@ -363,4 +405,3 @@ footer {
     margin-top: 20px;
   }
 }
-

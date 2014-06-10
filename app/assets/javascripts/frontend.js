@@ -20,9 +20,11 @@ $(document).ready(function(){
 
   $(document.body).delegate('a.add-to-cart', 'click', function(e){
     var self = this;
+    var action_name = $("input#action_name_store").val();
     $.ajax({
       url: $(this).attr('href'),
       type: 'POST',
+      data: {'in_action': action_name},
       success: function(response) {
         $('div#box_cart form ul').html(response);
         var count = parseInt($('div#box_cart form ul li input#tick_counter').val());
@@ -43,19 +45,21 @@ $(document).ready(function(){
 
   $(document.body).delegate('div.header li.dropdown a.show-cart', 'click', function(e){
     var self = this;
+    var action_name = $("input#action_name_store").val();
     if($(this).parents('li.dropdown').hasClass('open')){
       $(this).parents('li.dropdown').removeClass('open');
     }else {
       $.ajax({
         url: $(this).attr('href'),
         type: 'GET',
+        data: {'in_action': action_name},
         success: function(response) {
           $(self).parent('li.dropdown').addClass('open');
           $(self).parent('li.dropdown').find('div.dropdown-menu form ul').html(response);
         }
       });
     }
-    
+
     return false;
   });
 
@@ -72,11 +76,11 @@ $(document).ready(function(){
       data: {'json': json},
       success: function(response) {
         if(response){
-          $(self).parent('li.pull-right').prepend('<span class="label label-success">Success</span>');
-          $(self).parent('li.pull-right').find('span.label').fadeOut(2000);
+          $(self).parents('div#box_cart form ul').append('<li class="flash-notice text-center"><div class="alert alert-success">Update successful!</div></li>');
+          $(self).parents('div#box_cart form ul').find('li.flash-notice div.alert').fadeOut(2000);
         }else {
-          $(self).parent('li.pull-right').prepend('<span class="label label-danger">Success</span>');
-          $(self).parent('li.pull-right').find('span.label').fadeOut(2000);
+          $(self).parents('div#box_cart form ul').append('<li class="flash-notice text-center"><span class="label label-danger">Success</span></li>');
+          $(self).parents('div#box_cart form ul').find('li.flash-notice div.alert').fadeOut(2000);
         }
       }
     });

@@ -1,10 +1,10 @@
 
 <div class="row">
-  <div class="col-md-4">
+  <div class="col-md-4 col-sm-6">
     <%= render :partial => "shared/categories", locals: {categories: @categories, category_active: nil} %>
   </div>
 
-  <div class="col-md-8" id="stage">
+  <div class="col-md-8 col-sm-6" id="stage">
     <%= render :partial => "shared/home", locals: {latest_products: @latest_products, recommended_products: @recommended_products} %>
   </div>
 

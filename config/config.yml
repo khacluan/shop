@@ -1,0 +1,9 @@
+development:
+  domain: http://localhost:3000
+  email_sender: luandk@zigexn.vn
+  email_password: dangkhacluan7
+
+test:
+
+production:
+  domain: http://shop.zigexn.vn

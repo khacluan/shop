@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
   devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -14,13 +16,10 @@ Rails.application.routes.draw do
   get '/frontends/checkout', controller: :frontends, action: :checkout
   get '/frontends/search', controller: :frontends, action: :search
   put '/frontends/update_billing_information', controller: :frontends, action: :update_billing_information
-
-  namespace :frontends do 
-
-  end
+  get '/frontends/finish_shopping', controller: :frontends, action: :finish_shopping
+  get '/frontends/order', controller: :frontends, action: :order
 
   root 'frontends#index'
-
 
   namespace :admin do
     resources :category

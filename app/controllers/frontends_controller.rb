@@ -2,9 +2,8 @@ class FrontendsController < ActionController::Base
   protect_from_forgery with: :exception
   layout 'frontend'
   include CurrentCart
-  before_action :authenticate_user! , only: [:checkout, :profile]
+  before_action :authenticate_user! , only: [:checkout, :profile, :order]
   before_action :set_cart, only: [:add_to_cart, :show_cart, :checkout, :update_cart, :remove_item, :update_billing_information]
-  before_action :set_line_item, only: [:edit_cart, :destroy_cart]
 
   add_breadcrumb "Home", '/', only: [:index, :products_by_category, :product_detail]
 
@@ -12,12 +11,10 @@ class FrontendsController < ActionController::Base
   def search
     # Direct connection
     solr = RSolr.connect :url => 'http://luandk:luandk2014@localhost:8088/solr'
-    query = params[:q].empty? ? '*' : params[:q]
+    query = params[:q].empty? ? '*:*' : "name:#{params[:q]}, description:#{params[:q]}, price:#{params[:q]}"
     @solr_response = solr.paginate (params[:page] || 1), 20, 'select', :params => {
-      :q => "name, description, price:#{query}",
+      :q => query ,
     }
-
-    puts @solr_response['response']['docs'].first
   end
 
   def index
@@ -58,11 +55,11 @@ class FrontendsController < ActionController::Base
         @cart.line_items.create(product: product, qty: 1)
       end
     end
-    render partial: 'shared/show_cart', locals: {cart: @cart}
+    render partial: 'shared/show_cart', locals: {cart: @cart, in_action: params[:in_action]}
   end
 
   def show_cart
-    render partial: 'shared/show_cart', locals: {cart: @cart}, layout: false
+    render partial: 'shared/show_cart', locals: {cart: @cart, in_action: params[:in_action]}, layout: false
   end
 
   def update_cart
@@ -89,11 +86,8 @@ class FrontendsController < ActionController::Base
     if @order.nil?
       @order = Order.create(cart_id: @cart.id, user_id: current_user.id, order_code: "JS-#{SecureRandom.hex(8).upcase}")
     end
-    @billing_information = if current_user.billing_information.nil?
-      BillingInformation.create(user_id: current_user.id)
-    else
-      current_user.billing_information
-    end
+
+    @billing_information = BillingInformation.new
   end
 
   def profile
@@ -101,18 +95,30 @@ class FrontendsController < ActionController::Base
   end
 
   def update_billing_information
-    @billing_information = current_user.billing_information
+    @order = @cart.order
+    @billing_information = BillingInformation.create(permitted_billing_params)
+    @billing_information.user_id = current_user.id
+    @billing_information.order_id = @cart.order.id if @order
 
-    if @billing_information
-      if @billing_information.update_attributes(permitted_billing_params)
-        session.delete(:cart_id)
-        puts "@ajaaj #{@cart.inspect} and session is #{session[:cart_id]}"
-        render action: :thank_you
-      else
-        @order = @cart.order
-        render action: :checkout
-      end
+    if @billing_information.save
+      render action: :thank_you
+    else
+      render action: :checkout
     end
+  end
+
+  def finish_shopping
+    UserMailer.send_order_information(current_user, params[:order_id]).deliver
+    session.delete(:cart_id)
+    redirect_to action: :index
+  end
+
+  def order
+    @orders = current_user.orders
+  end
+
+  def update_profile
+    current_user.update_attributes(params[:user])
   end
 
   private
