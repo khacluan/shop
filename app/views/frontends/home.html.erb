@@ -1,0 +1,66 @@
+<div id="myCarousel" class="carousel slide">
+   <!-- Carousel indicators -->
+   <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+   </ol>   
+   <!-- Carousel items -->
+   <div class="carousel-inner">
+      <div class="item active">
+         <img class="img-responsive fullscreen" src="/assets/slider/image1.jpg" alt="First slide">
+         <div class="carousel-caption">This Caption 1</div>
+      </div>
+      <div class="item">
+         <img class="img-responsive fullscreen" src="/assets/slider/image2.jpg" alt="Second slide">
+         <div class="carousel-caption">This Caption 2</div>
+      </div>
+      <div class="item">
+         <img class="img-responsive fullscreen" src="/assets/slider/image3.jpg" alt="Third slide">
+         <div class="carousel-caption">This Caption 3</div>
+      </div>
+   </div>
+   <!-- Carousel nav -->
+   <a class="carousel-control left" href="#myCarousel" 
+      data-slide="prev"></a>
+   <a class="carousel-control right" href="#myCarousel" 
+      data-slide="next"></a>
+</div>
+
+<div class="container" role="main">
+   <div class="row">
+      <div class="col-md-12 col-sm-8 new-products clearfix">
+         <p class="cat-products">Newest Products</p>
+         <% @latest_products.each do |new_product| %>
+         <div class="thumbnail">
+            <div class="price-cover"></div>
+            <div class="price-text">$ <%= new_product.price %></div>
+            <img src="<%= new_product.photo.url(:medium)%>" alt="...">
+            <div class="divider"></div>
+            <div class="caption clearfix">
+              <div class="item-info"><span class="glyphicon glyphicon-user"></span>1305</div>
+              <div class="item-info"><span class="glyphicon glyphicon-star"></span>3</div>
+            </div>
+          </div>
+         <% end %>
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="col-md-12 col-sm-8 new-products clearfix">
+         <p class="cat-products">Promotion Products</p>
+         <% @latest_products.each do |new_product| %>
+         <div class="thumbnail">
+            <div class="price-cover"></div>
+            <div class="price-text">$ <%= new_product.price %></div>
+            <img src="<%= new_product.photo.url(:medium)%>" alt="...">
+            <div class="divider"></div>
+            <div class="caption clearfix">
+              <div class="item-info"><span class="glyphicon glyphicon-user"></span>1305</div>
+              <div class="item-info"><span class="glyphicon glyphicon-star"></span>3</div>
+            </div>
+          </div>
+         <% end %>
+      </div>
+   </div>
+</div>

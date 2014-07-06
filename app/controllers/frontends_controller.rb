@@ -17,6 +17,10 @@ class FrontendsController < ActionController::Base
     }
   end
 
+  def home
+    @latest_products = Product.latest_products
+  end
+
   def index
     @categories = Category.order('name asc')
     @latest_products = Product.latest_products

@@ -18,8 +18,9 @@ Rails.application.routes.draw do
   put '/frontends/update_billing_information', controller: :frontends, action: :update_billing_information
   get '/frontends/finish_shopping', controller: :frontends, action: :finish_shopping
   get '/frontends/order', controller: :frontends, action: :order
+  get '/frontends/index', controller: :frontends, action: :index
 
-  root 'frontends#index'
+  root 'frontends#home'
 
   namespace :admin do
     resources :category

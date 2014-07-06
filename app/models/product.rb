@@ -6,7 +6,7 @@ class Product < ActiveRecord::Base
   has_many :line_items
 
 
-  scope :latest_products, ->{order('created_at desc').limit(16)}
+  scope :latest_products, ->{order('created_at desc').limit(6)}
   scope :recommended_products, -> { where('price < ?', 4000).limit(8)}
 
   before_destroy :ensure_not_referenced_by_any_line_item

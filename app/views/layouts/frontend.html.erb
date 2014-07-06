@@ -13,18 +13,23 @@
     <![endif]-->
 
     <%= stylesheet_link_tag "frontend", :media => "all" %>
-
     <%= javascript_include_tag "frontend" %>
   </head>
   <body>
       <input type="hidden" name="action-name" value="<%= params[:action] %>" id="action_name_store"/>
       <%= render :partial => "shared/header" %>
-      <% if !["profile", "checkout", "update_billing_information", "search"].index(params[:action])%>
+      <% if !["profile", "checkout", "update_billing_information", "search", "home"].index(params[:action])%>
           <%= render :partial => "shared/breadcrumb.html" %>
       <% end %>
-      <div class="container main-box" role="main">
+
+      <% if ['home'].index(params[:action]) %>
         <%= yield %>
-      </div>
+      <% else %>
+        <div class="container main-box" role="main">
+          <%= yield %>
+        </div>
+      <% end %>
+      
       <%= render :partial => "shared/footer" %>
   </body>
 </html>
